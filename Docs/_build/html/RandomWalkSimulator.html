@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RandomWalkSimulator module &mdash; RSE-Distance  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RandomWalkSimulatorCUDA module" href="RandomWalkSimulatorCUDA.html" />
+    <link rel="prev" title="MeetingTimeEstimator module" href="MeetingTimeEstimator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> RSE-Distance
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">RSE-Distance</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="MeetingTimeEstimator.html">MeetingTimeEstimator module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RandomWalkSimulator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RandomWalkSimulatorCUDA.html">RandomWalkSimulatorCUDA module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RSE-Distance</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">RSE-Distance</a> &raquo;</li>
+      <li>RandomWalkSimulator module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/RandomWalkSimulator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-RandomWalkSimulator">
+<span id="randomwalksimulator-module"></span><h1>RandomWalkSimulator module<a class="headerlink" href="#module-RandomWalkSimulator" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="RandomWalkSimulator.RandomWalkSimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">RandomWalkSimulator.</span></span><span class="sig-name descname"><span class="pre">RandomWalkSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RandomWalkSimulator.RandomWalkSimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The class RandomWalkSimulator is designed to run a fast simulations of a random walk on a graph
+and compute the meeting times of two walks</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="RandomWalkSimulator.RandomWalkSimulator.check_complete">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meeting_times</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RandomWalkSimulator.RandomWalkSimulator.check_complete" title="Permalink to this definition"></a></dt>
+<dd><p>This method check if all the walks have met</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>meeting_times</strong> (<em>2D np.ndarray</em>) – the matrix of meeting times. Entry i, j is the meeting time of walk i with walk j.</p>
+</dd>
+</dl>
+<p>The default value of -1 is set when the walks have not met yet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if all the walks have met and False otherwise</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(bool)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="RandomWalkSimulator.RandomWalkSimulator.check_meetings">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_meetings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meeting_times</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RandomWalkSimulator.RandomWalkSimulator.check_meetings" title="Permalink to this definition"></a></dt>
+<dd><p>This method checks if the walks meet for the first time at the current step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>current_pos</strong> (<em>1D np.ndarray</em>) – the current position of the walks (i.e. the names of the vertices at which the walks are)</p></li>
+<li><p><strong>meeting_times</strong> (<em>2D np.ndarray</em>) – the matrix of meeting times. Entry i, j is the meeting time of walk i with walk j.</p></li>
+</ul>
+</dd>
+</dl>
+<p>The default value of -1 is set when the walks have not met yet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A matrix with entry (i,j) being true if walk i has met walk j for the first time at current_position</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(2D np.ndarray of boolean values)</p>
+</dd>
+</dl>
+<p>and false otherwise (i.e. either the walks are not at the same position, or they have met before).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="RandomWalkSimulator.RandomWalkSimulator.compute_next_position_from_proba">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_next_position_from_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proba_next_pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RandomWalkSimulator.RandomWalkSimulator.compute_next_position_from_proba" title="Permalink to this definition"></a></dt>
+<dd><p>For each row i of proba_next_pos, corresponding to one random walk, it samples the column index j with the probability specified in the entry proba_next_pos[i][j].
+The index j corresponds to the next position of the walk</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>proba_next_pos</strong> (<em>2D scipy.sparse.csr_matrix</em>) – a matrix with entry i,j being the probability of moving from i to j for the random walk.         The matrix has axis 0 of length n_samples (i.e. number of walks) and axis 1 of length n_nodes (i.e. the probability         for the walk to move at each one of those nodes)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the next position of the walks, randomly sampled from proba_next_pos</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(1D np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="RandomWalkSimulator.RandomWalkSimulator.get_meeting_times">
+<span class="sig-name descname"><span class="pre">get_meeting_times</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_time_steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_position</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RandomWalkSimulator.RandomWalkSimulator.get_meeting_times" title="Permalink to this definition"></a></dt>
+<dd><p>This method simulates random walks started at start_position and keeps track of their meeting times.
+Then it returns these meeting times, once all the walks have met or max_time_steps has expired.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_time_steps</strong> (<em>int</em>) – the number of time steps for which you want to simulate the random walks at most</p></li>
+<li><p><strong>start_position</strong> (<em>1D np.ndarray</em><em>, </em><em>optional</em>) – a 1D np.ndarray in which each entry is the starting positions of one sample of the random walk.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a 2D np.ndarray with entry m,n being the meeting time between sample walk m and sample walk n. If two walks never meet the value of the m,n entry is -1</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(2D np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="RandomWalkSimulator.RandomWalkSimulator.get_meeting_times_delta_g">
+<span class="sig-name descname"><span class="pre">get_meeting_times_delta_g</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_time_steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_samples</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RandomWalkSimulator.RandomWalkSimulator.get_meeting_times_delta_g" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the meeting times necessary to compute delta_g, i.e., it compute n_samples of the meeting time of two randomly started walks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_time_steps</strong> (<em>int</em>) – the number of time steps for which you want to simulate the random walks at most</p></li>
+<li><p><strong>n_samples</strong> (<em>int</em>) – the number of samples of the meeting time that you want</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a 1D np.ndarray in which each entry is one sample of the meeting time of two randomly started walks. If the walks met after max_time_steps the entry is equal to -1 by default.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(1D np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="RandomWalkSimulator.RandomWalkSimulator.get_meeting_times_rse_dist">
+<span class="sig-name descname"><span class="pre">get_meeting_times_rse_dist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_time_steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_samples_per_vertex</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RandomWalkSimulator.RandomWalkSimulator.get_meeting_times_rse_dist" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the meeting times necessary to compute the RSE distance between the vertices passed as parameters.
+If a list of vertices [v1, v2, v3, v4] is passed, the method returns n samples of the meeting time of walk started at vi with the walk started at vj,
+for each pair (vi,vj) in [v1, v2, v3, v4].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_time_steps</strong> (<em>int</em>) – the number of time steps for which you want to simulate the random walks at most.</p></li>
+<li><p><strong>vertices</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – the vertices for which we want to compute the meeting time</p></li>
+<li><p><strong>n_samples_per_vertex</strong> (<em>int</em>) – the number of samples of the meeting time per pair of vertex</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1D np.ndarray]): A dictionary where the key is a tuple (i,j) of vertices and the value is an array containing samples of the meeting
+time of the walks started at those two vertices.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(dict[tuple(int,int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="RandomWalkSimulator.RandomWalkSimulator.next_step">
+<span class="sig-name descname"><span class="pre">next_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array_current</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RandomWalkSimulator.RandomWalkSimulator.next_step" title="Permalink to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Given the current step of all the samples of the random walk, computes the next step for all the samples of the random walk</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>array_current</strong> (<em>2D np.ndarray</em>) – A 2D np.ndarray with rows indicating the current position of the random walk.             Each row is of the form [0,0, …, 0, 1, 0, …, 0]. The entry 1 indicates the current position of the random walk.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple consisting of:             * A 1D np.ndarray with for each sample of the random walk the index of the vertex where the rw will jump next             * A 2D scipy.sparse.csr_matrix with rows indicates the next position of the random walk of a sample.             Each row is of the form [0,0, …, 0, 1, 0, …, 0]. The entry 1 indicates the next position of the random walk.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray, scipy.sparse.csr_matrix)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="RandomWalkSimulator.RandomWalkSimulator.random_walk_matrix">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">random_walk_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RandomWalkSimulator.RandomWalkSimulator.random_walk_matrix" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the transition matrix of the random walk</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>g</strong> (<em>graph_tool.Graph</em>) – the graph for which we want to build the transition matrix</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the transition matrix of the random walk. This is defined as P(i,j) = 1/deg(i)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(torch.sparse_coo_tensor)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="RandomWalkSimulator.RandomWalkSimulator.start_pos_with_focal_vertices">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start_pos_with_focal_vertices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">focal_vertices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_samples_per_focal_vertex</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RandomWalkSimulator.RandomWalkSimulator.start_pos_with_focal_vertices" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a starting configuration where we have n_samples_per_focal_vertex random walks starting at each focal vertex</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>focal_vertices</strong> (<em>list</em>) – a list of integers, which are the vertices at which we want our walks to start out</p></li>
+<li><p><strong>n_samples_per_focal_vertex</strong> (<em>int</em>) – the number of walks we want to start per focal vertex</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An array of the type [1,1,1,2,2,2,3,3,3] with the starting position of the walks. Every focal vertex is repeated n_samples_per_focal_vertex times.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(1D np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="RandomWalkSimulator.RandomWalkSimulator.start_position">
+<span class="sig-name descname"><span class="pre">start_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_position</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RandomWalkSimulator.RandomWalkSimulator.start_position" title="Permalink to this definition"></a></dt>
+<dd><p>Randomly chooses starting vertices for each sample of the random walks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_samples</strong> (<em>int</em>) – the number of random walks you want to sample</p></li>
+<li><p><strong>start_position</strong> (<em>1D np.ndarray</em>) – starting positions for each sample of the random walk</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple consisting of:             * A 1D np.ndarray with for each sample of the random walks the index of the starting vertex of the random walks             * A 2D scipy.sparse.csr_matrix with rows indicates the starting position of the random walk of a sample.             Each row is of the form [0,0, …, 0, 1, 0, …, 0]. The entry 1 indicates the position of the random walk.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>[(np.ndarray, scipy.sparse.csr_matrix)]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="MeetingTimeEstimator.html" class="btn btn-neutral float-left" title="MeetingTimeEstimator module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="RandomWalkSimulatorCUDA.html" class="btn btn-neutral float-right" title="RandomWalkSimulatorCUDA module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Andrea Musso.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
