@@ -19,25 +19,24 @@ Installation
 ---------------------------------
 To use the scripts provided here it is necessary to install some packages.
 We suggest to install everything using a package installer such as `conda <https://www.anaconda.com/products/individual>`_
-First of all, one must install `graph_tool <https://graph-tool.skewed.de>`_
-To install graph_tool with conda it suffices to type into the terminal:
+After having installed conda, enter the following command in the terminal:
 
-``conda install -c conda-forge graph-tool``
+```rb
+conda env create -f environment.yml
+```
 
-Next one must install `numpy <https://numpy.org>`_, `tqdm <https://github.com/tqdm/tqdm>`_ and `pytorch <https://pytorch.org>`_.
-This can be done by typing the following commands into the terminal:
+This will create a conda environment named **rse-distance** and install all the dependencies to run the version of the scripts which does **not** require GPUs.
+If you want to run the version requiring GPUs, you will need to enter the following command:
 
-``conda install numpy`` \
+```rb
+conda env create -f environmentCUDA.yml
+```
 
-``conda install tqdm`` \
+This will create a conda environment named **rse-distance-cuda** and install all the dependencies to run the version of the scripts which requires GPUs.
+Note that you need to have GPUs on your computer to run this version of the scripts. 
 
-``conda install pytorch``
-
-Finally, if you want to use the CUDA version of the python script (i.e. the one using GPUs) it is necessary to install [CuPy](https://cupy.dev). It can be simply done by typing the following command in the terminal:
-
-``conda install -c conda-forge cupy``
-
-Once all packages are installed you can test out the scripts above cloning this Github repository onto your computer and using the Jupiter notebook Example.ipynb  provided below. 
+The main packages in the environmnet **rse-distance** are `graph_tool <https://graph-tool.skewed.de>`_, `numpy <https://numpy.org>`_, `tqdm <https://github.com/tqdm/tqdm>`_ and `pytorch <https://pytorch.org>`_.. 
+The environment **rse-distance-cuda** contains all the packages in the environment **rse-distance** plus `cupy <https://cupy.dev>`_. 
 
 Running the code
 ---------------------------------
