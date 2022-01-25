@@ -14,4 +14,4 @@ sphinx:
 
 # Explicitly set the dependencies
 conda:
-  environment: environment.yml
+  environment: environment_linux.yml
