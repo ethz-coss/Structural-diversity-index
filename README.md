@@ -52,7 +52,7 @@ The Jupiter notebook **Example.ipynb** contains a commented example of how to em
 
 ## Extending the code
 
-If you are interested in extending or simply playing around with the code, I have created a detailed documentation with ReadTheDocs which is available here: [doc](https://rse-distance.readthedocs.io/en/latest/). Have fun!
+If you are interested in extending or simply playing around with the code, I have created a detailed documentation with ReadTheDocs which is available [here](https://rse-distance.readthedocs.io). Have fun!
 
 
 
