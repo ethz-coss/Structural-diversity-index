@@ -2,9 +2,15 @@
 This repository contains code for fast numerical computation of the RSE distance.
 
 ## Contents
-The repository contains two python scripts: **RandomWalkSimulatorCUDA** and **RandomWalkSimulator**.
-The scripts basically do the same thing, namely, compute the meeting times of random walks on a graph. 
-The difference between the scripts is that running RandomWalkSimulatorCUDA requires GPUs, wheras, RandomWalkSimulator runs on any computer with the appropriate packages installed. Clearly, RandomWalkSimulatorCUDA is much faster than RandomWalkSimulator, so it is to be preferred if GPUs are available. 
+The repository contains three python scripts: **RandomWalkSimulatorCUDA**, **RandomWalkSimulator** and **MeetingTimeEstimator**
+Let us briefly describe what each script does:
+   * RandomWalkSimulator computes the meeting time of random walks on a graph. It runs on any computer with the appropriate packages installed (see Installation)
+   * RandomWalkSimulatorCUDA also computes the meeting time of random walks on a graph. However, it requires GPUs to run (more precisely CudaToolkit 11.3).
+   Clearly, RandomWalkSimulatorCUDA is much faster than RandomWalkSimulator, so it is to be preferable if GPUs are available. 
+   * MeetingTimeEstimator is a class that makes educated guesses of the meeting times of two walks which have not met, based on the meeting times of walks which have met. 
+
+Each one of these scripts is explained more in detail in the documentation provided [here](https://rse-distance.readthedocs.io).
+If you are interested in a **quick start tutorial** see Running the code.
 
 ## Installation
 
@@ -44,9 +50,9 @@ MacOS Binaries dont support CUDA, therefore it is not possible to run the GPU ve
 
 The main packages in the environmnet **rse-distance** are [graph_tool](https://graph-tool.skewed.de), [numpy](https://numpy.org), [tqdm](https://github.com/tqdm/tqdm) and [pytorch](https://pytorch.org). The environment **rse-distance-cuda** contains all the packages in the environment **rse-distance** plus [cupy](https://cupy.dev). If (for any reason) the installation instructions above do not work for you, you can still try to install the aforementioned packages manually. 
 
-## Running the code
+## Tutorial
 
-The Jupiter notebook **Example.ipynb** contains a commented example of how to employ the scripts RandomWalkSimulator (or RandomWalkSimulatorCUDA) in order to compute:
+The Jupiter notebook **Example.ipynb** contains a detailed tutorial explaining how to employ the scripts RandomWalkSimulator (or RandomWalkSimulatorCUDA) in order to compute:
 * The RSE distance between two vertices i and j
 * The structural diversity index \Delta(G)
 
