@@ -3,6 +3,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  - python=3.8.12=h43ca1e7_2_cpython
   - _pytorch_select=0.1=cpu_0
   - appnope=0.1.2=py38h50d1736_2
   - asttokens=2.0.5=pyhd8ed1ab_0
@@ -119,7 +120,6 @@ dependencies:
   - pygments=2.11.2=pyhd8ed1ab_0
   - pygobject=3.42.0=py38h1ec859e_1
   - pyparsing=3.0.7=pyhd8ed1ab_0
-  - python=3.8.12=h43ca1e7_2_cpython
   - python-dateutil=2.8.2=pyhd8ed1ab_0
   - python_abi=3.8=2_cp38
   - pytorch=1.6.0=cpu_py38hd70000b_0
