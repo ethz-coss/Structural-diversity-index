@@ -50,5 +50,9 @@ The Jupiter notebook **Example.ipynb** contains a commented example of how to em
 * The RSE distance between two vertices i and j
 * The structural diversity index \Delta(G)
 
+## Extending the code
+
+If you are interested in extending or simply playing around with the code, I have created a detailed documentation with ReadTheDocs which is available [here](rse-distance.readthedocs.io). Have fun!
+
 
 
