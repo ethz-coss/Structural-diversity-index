@@ -5,11 +5,13 @@ build:
   tools:
     python: "3.8"
 
+# Build all formats
+formats: all
+
 # Build from the docs/ directory with Sphinx
 sphinx:
   configuration: Docs/conf.py
 
-# Explicitly set the version of Python and its requirements
-python:
-  install:
-    - requirements: environment.yml
+# Explicitly set the dependencies
+conda:
+  environment: environment.yml
