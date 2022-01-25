@@ -14,8 +14,7 @@ Contents
 The repository contains three python scripts: **RandomWalkSimulatorCUDA**, **RandomWalkSimulator** and **MeetingTimeEstimator**
 Let us briefly describe what each script does:
    * RandomWalkSimulator computes the meeting time of random walks on a graph. It runs on any computer with the appropriate packages installed (see Installation)
-   * RandomWalkSimulatorCUDA also computes the meeting time of random walks on a graph. However, it requires GPUs to run (more precisely CudaToolkit 11.3).
-   Clearly, RandomWalkSimulatorCUDA is much faster than RandomWalkSimulator, so it is to be preferable if GPUs are available. 
+   * RandomWalkSimulatorCUDA also computes the meeting time of random walks on a graph. However, it requires GPUs to run (more precisely CudaToolkit 11.3). Clearly, RandomWalkSimulatorCUDA is much faster than RandomWalkSimulator, so it is to be preferable if GPUs are available. 
    * MeetingTimeEstimator is a class that makes educated guesses of the meeting times of two walks which have not met, based on the meeting times of walks which have met. 
 
 Each one of these scripts is explained more in detail in the documentation below (see Contents).
@@ -63,7 +62,11 @@ If (for any reason) the installation instructions above do not work for you, you
 Tutorial
 ---------------------------------
 
-The Jupiter notebook ``Example.ipynb`` contains a detailed tutorial explaining how to employ the scripts RandomWalkSimulator (or RandomWalkSimulatorCUDA) in order to compute:
+The Jupiter notebook 
+
+``Example.ipynb`` 
+
+contains a detailed tutorial explaining how to employ the scripts RandomWalkSimulator (or RandomWalkSimulatorCUDA) in order to compute:
    - The RSE distance between two vertices i and j
    - The structural diversity index \Delta(G)
 

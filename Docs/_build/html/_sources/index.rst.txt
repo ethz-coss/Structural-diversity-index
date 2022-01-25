@@ -11,45 +11,69 @@ This repository contains code for fast numerical computation of the RSE distance
 
 Contents
 ---------------------------------
-The repository contains two python scripts: **RandomWalkSimulatorCUDA** and **RandomWalkSimulator**.
-The scripts basically do the same thing, namely, compute the meeting times of random walks on a graph. 
-The difference between the scripts is that running RandomWalkSimulatorCUDA requires GPUs, wheras, RandomWalkSimulator runs on any computer with the appropriate packages installed (see requirements.txt). Clearly, RandomWalkSimulatorCUDA is much faster than RandomWalkSimulator, so it is to be preferred if GPUs are available. 
+The repository contains three python scripts: **RandomWalkSimulatorCUDA**, **RandomWalkSimulator** and **MeetingTimeEstimator**
+Let us briefly describe what each script does:
+   * RandomWalkSimulator computes the meeting time of random walks on a graph. It runs on any computer with the appropriate packages installed (see Installation)
+   * RandomWalkSimulatorCUDA also computes the meeting time of random walks on a graph. However, it requires GPUs to run (more precisely CudaToolkit 11.3). Clearly, RandomWalkSimulatorCUDA is much faster than RandomWalkSimulator, so it is to be preferable if GPUs are available. 
+   * MeetingTimeEstimator is a class that makes educated guesses of the meeting times of two walks which have not met, based on the meeting times of walks which have met. 
+
+Each one of these scripts is explained more in detail in the documentation below (see Contents).
+A quickstart tutorial is available in the Jupyter Notebook Example.ipynb (see repository)
 
 Installation
 ---------------------------------
 To use the scripts provided here it is necessary to install some packages.
 We suggest to install everything using a package installer such as `conda <https://www.anaconda.com/products/individual>`_
-First of all, one must install `graph_tool <https://graph-tool.skewed.de>`_
-To install graph_tool with conda it suffices to type into the terminal:
 
-``conda install -c conda-forge graph-tool``
+Linux and Windows
+#########################
 
-Next one must install `numpy <https://numpy.org>`_, `tqdm <https://github.com/tqdm/tqdm>`_ and `pytorch <https://pytorch.org>`_.
-This can be done by typing the following commands into the terminal:
+After having installed conda, enter the following command in the terminal:
 
-``conda install numpy`` \
+``conda env create -f environment_linux.yml``
 
-``conda install tqdm`` \
+This will create a conda environment named **rse-distance** and install all the dependencies to run the version of the scripts which does **not** require GPUs.
+If you want to run the version requiring GPUs, you will need to enter the following command:
 
-``conda install pytorch``
+``conda env create -f environmentCUDA.yml``
 
-Finally, if you want to use the CUDA version of the python script (i.e. the one using GPUs) it is necessary to install [CuPy](https://cupy.dev). It can be simply done by typing the following command in the terminal:
+This will create a conda environment named **rse-distance-cuda** and install all the dependencies to run the version of the scripts which requires GPUs.
+Note that you need to have GPUs on your computer to run this version of the scripts. 
 
-``conda install -c conda-forge cupy``
+Disclaimer: I have never tried to install the dependencies on Windows. 
 
-Once all packages are installed you can test out the scripts above cloning this Github repository onto your computer and using the Jupiter notebook Example.ipynb  provided below. 
+MacOS
+#########################
 
-Running the code
+After having installed conda, enter the following command in the terminal:
+
+``conda env create -f environment_mac.yml``
+
+This will create a conda environment named **rse-distance** and install all the dependencies to run the version of the scripts which does **not** require GPUs.
+MacOS Binaries dont support CUDA, therefore it is not possible to run the GPU version of the script on MacOS.
+
+General remarks on packages 
+#########################
+
+The main packages in the environmnet **rse-distance** are `graph_tool <https://graph-tool.skewed.de>`_, `numpy <https://numpy.org>`_, `tqdm <https://github.com/tqdm/tqdm>`_ and `pytorch <https://pytorch.org>`_.. 
+The environment **rse-distance-cuda** contains all the packages in the environment **rse-distance** plus `cupy <https://cupy.dev>`_.  
+If (for any reason) the installation instructions above do not work for you, you can still try to install the aforementioned packages manually. 
+
+Tutorial
 ---------------------------------
 
-The Jupiter notebook ``Example.ipynb`` contains a commented example of how to employ the scripts RandomWalkSimulator (or RandomWalkSimulatorCUDA) in order to compute:
+The Jupiter notebook 
+
+``Example.ipynb`` 
+
+contains a detailed tutorial explaining how to employ the scripts RandomWalkSimulator (or RandomWalkSimulatorCUDA) in order to compute:
    - The RSE distance between two vertices i and j
    - The structural diversity index \Delta(G)
 
 
-Documentation
+Full code documentation
 ------------------------------------
-Below we provide detailed documentation for the python scripts in this repository. 
+Below we provide detailed documentation for the python scripts in the repository RSE-distance
 
 
 

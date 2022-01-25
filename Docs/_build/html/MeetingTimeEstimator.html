@@ -84,16 +84,18 @@ The main idea behind these methods is to use the fact that meeting times are app
 <dt class="sig sig-object py" id="MeetingTimeEstimator.MeetingTimeEstimator.estimate_meeting_times_unmet_random_walks">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">estimate_meeting_times_unmet_random_walks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meeting_times</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_time_steps</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MeetingTimeEstimator.MeetingTimeEstimator.estimate_meeting_times_unmet_random_walks" title="Permalink to this definition"></a></dt>
 <dd><p>Given samples of the meeting times of two random walks containing some samples in which the walks did not meet, this method estimates the value of the samples in which the walks did not meet.</p>
-<p>Our estimate for the meeting time is based on the following reasoning. If the meeting time is approximately geometrically distributed it suffices to:
-* Estimate the parameter p of the geometric distribution which best approximate the distribution of the meeting time
-* Replace each -1 (i.e. each sample of the meeting time to be estimated) with: v + max_time_steps + 1, where v is a value sampled from the geometric distrbution with parameter p.
-Here we are using the memoryless property of the geometric distribution.</p>
+<dl class="simple">
+<dt>Our estimate for the meeting time is based on the following reasoning. If the meeting time is approximately geometrically distributed it suffices to:</dt><dd><ul class="simple">
+<li><p>Estimate the parameter p of the geometric distribution which best approximate the distribution of the meeting time</p></li>
+<li><p>Replace each -1 (i.e. each sample of the meeting time to be estimated) with: v + max_time_steps + 1, where v is a value sampled from the geometric distrbution with parameter p.               Here we are using the memoryless property of the geometric distribution.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>meeting_times</strong> (<em>1D np.ndarray</em>) – a 1D np.ndarray containing samples of the meeting times of two random walks. Indicate by -1 the samples which you want to be estimated</p></li>
-<li><p><strong>max_time_steps</strong> (<em>int</em>) – The number of time steps that the random walks have been run in order to compute the samples of the meeting times passed in the array meeting_times.</p></li>
-<li><p><strong>meet.</strong> (<em>For the samples with a -1 we assume that the walks took more than max_time_steps to</em>) – </p></li>
+<li><p><strong>max_time_steps</strong> (<em>int</em>) – The number of time steps that the random walks have been run in order to compute the samples of the meeting times passed in the array meeting_times.             For the samples with a -1 we assume that the walks took more than max_time_steps to meet.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -109,17 +111,14 @@ Here we are using the memoryless property of the geometric distribution.</p>
 <dt class="sig sig-object py" id="MeetingTimeEstimator.MeetingTimeEstimator.estimate_p_geometric_approximation">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">estimate_p_geometric_approximation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meeting_times</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_time_steps</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MeetingTimeEstimator.MeetingTimeEstimator.estimate_p_geometric_approximation" title="Permalink to this definition"></a></dt>
 <dd><p>Computes the parameter p of the geometric distribution which best approximate the distribution of the meeting time.</p>
-<p>The computation is done by using the following equation:
-P[T leq t] = (1 - p)^t
-Here T is the meeting time of the walks. If T is geometrically distributed the equation above should hold for some p.
+<p>The computation is done by using the following equation: P[T leq t] = (1 - p)^t Here T is the meeting time of the walks. If T is geometrically distributed the equation above should hold for some p.
 To compute this p, we compute all terms in the equation and then isolate p.
 Here t = max_time_steps and P[T leq t] is computed by counting the number of walks that did not meet.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>meeting_times</strong> (<em>1D np.ndarray</em>) – a 1D np.ndarray containing samples of the meeting times of two random walks. Indicate by -1 the samples which you want to be estimated</p></li>
-<li><p><strong>max_time_steps</strong> (<em>int</em>) – The number of time steps that the random walks have been run in order to compute the samples of the meeting times passed in the array meeting_times.</p></li>
-<li><p><strong>meet.</strong> (<em>For the samples with a -1 we assume that the walks took more than max_time_steps to</em>) – </p></li>
+<li><p><strong>max_time_steps</strong> (<em>int</em>) – The number of time steps that the random walks have been run in order to compute the samples of the meeting times passed in the array meeting_times.             For the samples with a -1 we assume that the walks took more than max_time_steps to meet.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

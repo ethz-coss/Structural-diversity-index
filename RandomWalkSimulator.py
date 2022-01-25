@@ -66,7 +66,7 @@ class RandomWalkSimulator:
             n_samples_per_vertex (int): the number of samples of the meeting time per pair of vertex 
 
         Returns:
-            (dict[tuple(int,int): 1D np.ndarray]): A dictionary where the key is a tuple (i,j) of vertices and the value is an array containing samples of the meeting
+            (dict[tuple of ints, 1D np.ndarray]): A dictionary where the key is a tuple (i,j) of vertices and the value is an array containing samples of the meeting
             time of the walks started at those two vertices. 
             
         """
@@ -147,7 +147,8 @@ class RandomWalkSimulator:
             start_position (1D np.ndarray, optional): a 1D np.ndarray in which each entry is the starting positions of one sample of the random walk. 
 
         Returns:
-            (2D np.ndarray): a 2D np.ndarray with entry m,n being the meeting time between sample walk m and sample walk n. If two walks never meet the value of the m,n entry is -1
+            (2D np.ndarray): a 2D np.ndarray with entry m,n being the meeting time between sample walk m and sample walk n. \
+            If two walks never meet the value of the m,n entry is -1
 
         """
 
@@ -190,12 +191,12 @@ class RandomWalkSimulator:
 
         Args:
             current_pos (1D np.ndarray): the current position of the walks (i.e. the names of the vertices at which the walks are)
-            meeting_times (2D np.ndarray): the matrix of meeting times. Entry i, j is the meeting time of walk i with walk j.
-        The default value of -1 is set when the walks have not met yet.
+            meeting_times (2D np.ndarray): the matrix of meeting times. Entry i, j is the meeting time of walk i with walk j.\
+            The default value of -1 is set when the walks have not met yet.
 
         Returns:
-            (2D np.ndarray of boolean values): A matrix with entry (i,j) being true if walk i has met walk j for the first time at current_position
-        and false otherwise (i.e. either the walks are not at the same position, or they have met before).
+            (2D np.ndarray of boolean values): A matrix with entry (i,j) being true if walk i has met walk j for the first time at current_position \
+            and false otherwise (i.e. either the walks are not at the same position, or they have met before).
 
         """
 
@@ -219,8 +220,8 @@ class RandomWalkSimulator:
         This method check if all the walks have met
 
         Args:
-            meeting_times (2D np.ndarray): the matrix of meeting times. Entry i, j is the meeting time of walk i with walk j.
-        The default value of -1 is set when the walks have not met yet.
+            meeting_times (2D np.ndarray): the matrix of meeting times. Entry i, j is the meeting time of walk i with walk j. \
+            The default value of -1 is set when the walks have not met yet.
 
         Returns:
             (bool):  True if all the walks have met and False otherwise
@@ -249,9 +250,11 @@ class RandomWalkSimulator:
             Each row is of the form [0,0, ..., 0, 1, 0, ..., 0]. The entry 1 indicates the current position of the random walk.
 
         Returns:
-            (np.ndarray, scipy.sparse.csr_matrix): A tuple consisting of: \
-            * A 1D np.ndarray with for each sample of the random walk the index of the vertex where the rw will jump next \
-            * A 2D scipy.sparse.csr_matrix with rows indicates the next position of the random walk of a sample. \
+            (np.ndarray, scipy.sparse.csr_matrix): \
+            A tuple consisting of: 
+                * A 1D np.ndarray with for each sample of the random walk the index of the vertex where the rw will jump next 
+                * A 2D scipy.sparse.csr_matrix with rows indicates the next position of the random walk of a sample.
+
             Each row is of the form [0,0, ..., 0, 1, 0, ..., 0]. The entry 1 indicates the next position of the random walk.
 
         """
@@ -286,8 +289,8 @@ class RandomWalkSimulator:
 
         Args:
             proba_next_pos (2D scipy.sparse.csr_matrix): a matrix with entry i,j being the probability of moving from i to j for the random walk. \
-        The matrix has axis 0 of length n_samples (i.e. number of walks) and axis 1 of length n_nodes (i.e. the probability \
-        for the walk to move at each one of those nodes)
+            The matrix has axis 0 of length n_samples (i.e. number of walks) and axis 1 of length n_nodes (i.e. the probability \
+            for the walk to move at each one of those nodes)
 
         Returns:
             (1D np.ndarray): the next position of the walks, randomly sampled from proba_next_pos
@@ -319,9 +322,11 @@ class RandomWalkSimulator:
             start_position (1D np.ndarray): starting positions for each sample of the random walk 
 
         Returns:
-            [(np.ndarray, scipy.sparse.csr_matrix)]: A tuple consisting of: \
-            * A 1D np.ndarray with for each sample of the random walks the index of the starting vertex of the random walks \
-            * A 2D scipy.sparse.csr_matrix with rows indicates the starting position of the random walk of a sample. \
+            [(np.ndarray, scipy.sparse.csr_matrix)]: 
+            A tuple consisting of: 
+                * A 1D np.ndarray with for each sample of the random walks the index of the starting vertex of the random walks 
+                * A 2D scipy.sparse.csr_matrix with rows indicates the starting position of the random walk of a sample. 
+
             Each row is of the form [0,0, ..., 0, 1, 0, ..., 0]. The entry 1 indicates the position of the random walk.
 
         """

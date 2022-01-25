@@ -86,16 +86,13 @@ and compute the meeting times of two walks</p>
 <dd><p>This method check if all the walks have met</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>meeting_times</strong> (<em>2D np.ndarray</em>) – the matrix of meeting times. Entry i, j is the meeting time of walk i with walk j.</p>
+<dd class="field-odd"><p><strong>meeting_times</strong> (<em>2D np.ndarray</em>) – the matrix of meeting times. Entry i, j is the meeting time of walk i with walk j.             The default value of -1 is set when the walks have not met yet.</p>
 </dd>
-</dl>
-<p>The default value of -1 is set when the walks have not met yet.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>True if all the walks have met and False otherwise</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if all the walks have met and False otherwise</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>(bool)</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(bool)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -108,20 +105,16 @@ and compute the meeting times of two walks</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>current_pos</strong> (<em>1D np.ndarray</em>) – the current position of the walks (i.e. the names of the vertices at which the walks are)</p></li>
-<li><p><strong>meeting_times</strong> (<em>2D np.ndarray</em>) – the matrix of meeting times. Entry i, j is the meeting time of walk i with walk j.</p></li>
+<li><p><strong>meeting_times</strong> (<em>2D np.ndarray</em>) – the matrix of meeting times. Entry i, j is the meeting time of walk i with walk j.            The default value of -1 is set when the walks have not met yet.</p></li>
 </ul>
 </dd>
-</dl>
-<p>The default value of -1 is set when the walks have not met yet.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A matrix with entry (i,j) being true if walk i has met walk j for the first time at current_position</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A matrix with entry (i,j) being true if walk i has met walk j for the first time at current_position             and false otherwise (i.e. either the walks are not at the same position, or they have met before).</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>(2D np.ndarray of boolean values)</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(2D np.ndarray of boolean values)</p>
 </dd>
 </dl>
-<p>and false otherwise (i.e. either the walks are not at the same position, or they have met before).</p>
 </dd></dl>
 
 <dl class="py method">
@@ -131,7 +124,7 @@ and compute the meeting times of two walks</p>
 The index j corresponds to the next position of the walk</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>proba_next_pos</strong> (<em>2D scipy.sparse.csr_matrix</em>) – a matrix with entry i,j being the probability of moving from i to j for the random walk.         The matrix has axis 0 of length n_samples (i.e. number of walks) and axis 1 of length n_nodes (i.e. the probability         for the walk to move at each one of those nodes)</p>
+<dd class="field-odd"><p><strong>proba_next_pos</strong> (<em>2D scipy.sparse.csr_matrix</em>) – a matrix with entry i,j being the probability of moving from i to j for the random walk.             The matrix has axis 0 of length n_samples (i.e. number of walks) and axis 1 of length n_nodes (i.e. the probability             for the walk to move at each one of those nodes)</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>the next position of the walks, randomly sampled from proba_next_pos</p>
@@ -155,7 +148,7 @@ Then it returns these meeting times, once all the walks have met or max_time_ste
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a 2D np.ndarray with entry m,n being the meeting time between sample walk m and sample walk n. If two walks never meet the value of the m,n entry is -1</p>
+<dd class="field-even"><p>a 2D np.ndarray with entry m,n being the meeting time between sample walk m and sample walk n.             If two walks never meet the value of the m,n entry is -1</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>(2D np.ndarray)</p>
@@ -198,11 +191,11 @@ for each pair (vi,vj) in [v1, v2, v3, v4].</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>1D np.ndarray]): A dictionary where the key is a tuple (i,j) of vertices and the value is an array containing samples of the meeting
+<dd class="field-even"><p>A dictionary where the key is a tuple (i,j) of vertices and the value is an array containing samples of the meeting
 time of the walks started at those two vertices.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(dict[tuple(int,int)</p>
+<dd class="field-odd"><p>(dict[tuple of ints, 1D np.ndarray])</p>
 </dd>
 </dl>
 </dd></dl>
@@ -218,7 +211,15 @@ time of the walks started at those two vertices.</p>
 <dd class="field-odd"><p><strong>array_current</strong> (<em>2D np.ndarray</em>) – A 2D np.ndarray with rows indicating the current position of the random walk.             Each row is of the form [0,0, …, 0, 1, 0, …, 0]. The entry 1 indicates the current position of the random walk.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A tuple consisting of:             * A 1D np.ndarray with for each sample of the random walk the index of the vertex where the rw will jump next             * A 2D scipy.sparse.csr_matrix with rows indicates the next position of the random walk of a sample.             Each row is of the form [0,0, …, 0, 1, 0, …, 0]. The entry 1 indicates the next position of the random walk.</p>
+<dd class="field-even"><p><dl class="simple">
+<dt>A tuple consisting of:</dt><dd><ul class="simple">
+<li><p>A 1D np.ndarray with for each sample of the random walk the index of the vertex where the rw will jump next</p></li>
+<li><p>A 2D scipy.sparse.csr_matrix with rows indicates the next position of the random walk of a sample.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Each row is of the form [0,0, …, 0, 1, 0, …, 0]. The entry 1 indicates the next position of the random walk.</p>
+</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>(np.ndarray, scipy.sparse.csr_matrix)</p>
@@ -275,7 +276,15 @@ time of the walks started at those two vertices.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A tuple consisting of:             * A 1D np.ndarray with for each sample of the random walks the index of the starting vertex of the random walks             * A 2D scipy.sparse.csr_matrix with rows indicates the starting position of the random walk of a sample.             Each row is of the form [0,0, …, 0, 1, 0, …, 0]. The entry 1 indicates the position of the random walk.</p>
+<dd class="field-even"><p><dl class="simple">
+<dt>A tuple consisting of:</dt><dd><ul class="simple">
+<li><p>A 1D np.ndarray with for each sample of the random walks the index of the starting vertex of the random walks</p></li>
+<li><p>A 2D scipy.sparse.csr_matrix with rows indicates the starting position of the random walk of a sample.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Each row is of the form [0,0, …, 0, 1, 0, …, 0]. The entry 1 indicates the position of the random walk.</p>
+</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>[(np.ndarray, scipy.sparse.csr_matrix)]</p>
