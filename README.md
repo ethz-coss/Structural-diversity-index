@@ -1,16 +1,16 @@
 # RSE-Distance
-This repository contains code for fast numerical computation of the RSE distance.
+This repository contains code for fast numerical computation of the structural diversity index
 
 ## Contents
-The repository contains three python scripts: **RandomWalkSimulatorCUDA**, **RandomWalkSimulator** and **MeetingTimeEstimator**
+The repository contains four python scripts:**MeetingTimesUI**, **RandomWalkSimulatorCUDA**, **RandomWalkSimulator** and **MeetingTimeEstimator**
 Let us briefly describe what each script does:
-   * RandomWalkSimulator computes the meeting time of random walks on a graph. It runs on any computer with the appropriate packages installed (see Installation)
-   * RandomWalkSimulatorCUDA also computes the meeting time of random walks on a graph. However, it requires GPUs to run (more precisely CudaToolkit 11.3).
-   Clearly, RandomWalkSimulatorCUDA is much faster than RandomWalkSimulator, so it is to be preferable if GPUs are available. 
+   * MeetingTimeUI provides a user interface for the scripts
+   * RandomWalkSimulator computes the meeting time of a random walk on a graph. 
+   * RandomWalkSimulatorCUDA computes the meeting time of random walks on a graph using CUDA and GPUs (much faster for large graphs). It requires CudaToolkit 11.3 to run.
    * MeetingTimeEstimator is a class that makes educated guesses of the meeting times of two walks which have not met, based on the meeting times of walks which have met. 
 
 Each one of these scripts is explained more in detail in the documentation provided [here](https://rse-distance.readthedocs.io).
-If you are interested in a **quick start tutorial** see Running the code.
+If you are interested in a **quick start tutorial** see the section **Tutorial** below.
 
 ## Installation
 
