@@ -40,6 +40,7 @@ Module contents
 ---------------
 
 .. automodule:: structural_diversity_index
+   :imported-members:
    :members:
    :undoc-members:
    :show-inheritance:
