@@ -1,0 +1,42 @@
+name: sdi_index
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1
+  - _openmp_mutex=4.5
+  - ca-certificates=2022.6.15
+  - certifi=2022.6.15
+  - cudatoolkit=11.0.3
+  - cupy=11.0.0
+  - fastrlock=0.8
+  - ld_impl_linux-64=2.38
+  - libblas=3.9.0
+  - libcblas=3.9.0
+  - libffi=3.3
+  - libgcc-ng=12.1.0
+  - libgfortran-ng=12.1.0
+  - libgfortran5=12.1.0
+  - liblapack=3.9.0
+  - libopenblas=0.3.21
+  - libstdcxx-ng=12.1.0
+  - libzlib=1.2.12
+  - llvm-openmp=14.0.4
+  - ncurses=6.3
+  - numpy=1.23.2
+  - openssl=1.1.1q
+  - pip=22.1.2
+  - python=3.8.13
+  - python_abi=3.8
+  - readline=8.1.2
+  - setuptools=63.4.1
+  - sqlite=3.39.2
+  - tk=8.6.12
+  - wheel=0.37.1
+  - xz=5.2.5
+  - zlib=1.2.12
+  - pip:
+    - scipy==1.9.1
+    - structural-diversity-index==0.0.3
+    - tqdm==4.64.1
+    - typing-extensions==4.3.0

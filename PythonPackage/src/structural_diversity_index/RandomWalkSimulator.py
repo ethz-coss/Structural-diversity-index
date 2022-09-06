@@ -1,8 +1,8 @@
-import numpy as np 
-import scipy.sparse as sparse 
-from graph_tool.spectral import adjacency
+import numpy as np
+import scipy.sparse as sparse
 from tqdm import tqdm
 import torch
+from typing import Tuple
 
 
 class RandomWalkSimulator:
@@ -13,25 +13,25 @@ class RandomWalkSimulator:
 
     """
 
-    def __init__(self, g):
+    def __init__(self, random_walk_matrix: sparse.csr_matrix):
         """
 
         Initialises a RandomWalkSimulator
 
         Args:
-            g (graph_tool.Graph): the graph on which you want to simulate the random walk
+            random_walk_matrix (scipy.sparse.csr_matrix): the random walk transition matrix of the graph on which you want to simulate the random walk
 
         """
 
         # Device name
-        self.n_nodes = g.num_vertices()
+        self.n_nodes = random_walk_matrix.shape[0]
 
         # Random walk matrix
-        self.P = self.random_walk_matrix(g=g)
+        self.P = random_walk_matrix
 
     ###################################################################### PUBLIC METHODS ###############################################################################
 
-    def get_meeting_times_delta_g(self, max_time_steps, n_samples):
+    def get_meeting_times(self, max_time_steps: int, n_samples: int) -> np.ndarray:
         """
 
         Gets the meeting times necessary to compute delta_g, i.e., it compute n_samples of the meeting time of two randomly started walks.
@@ -45,106 +45,51 @@ class RandomWalkSimulator:
 
         """
         start_position = np.random.randint(low=0, high=self.n_nodes, size=[n_samples])
-        meeting_times = self.get_meeting_times(max_time_steps=max_time_steps, start_position=start_position)
+        meeting_times = self._get_meeting_times(max_time_steps=max_time_steps, start_position=start_position)
 
         meeting_times_flat = np.ndarray.flatten(meeting_times)
-        meeting_times_flat_without_diagonal = np.delete(meeting_times_flat, range(0, len(meeting_times_flat), len(meeting_times_flat) + 1), 0)
-        
+        meeting_times_flat_without_diagonal = np.delete(meeting_times_flat,
+                                                        range(0, len(meeting_times_flat), len(meeting_times_flat) + 1),
+                                                        0)
+
         return meeting_times_flat_without_diagonal
 
-
-    def get_meeting_times_rse_dist(self, max_time_steps, vertices, n_samples_per_vertex):
-        """
-
-        Gets the meeting times necessary to compute the RSE distance between the vertices passed as parameters. 
-        If a list of vertices [v1, v2, v3, v4] is passed, the method returns n samples of the meeting time of walk started at vi with the walk started at vj,
-        for each pair (vi,vj) in [v1, v2, v3, v4].
-
-        Args:
-            max_time_steps (int): the number of time steps for which you want to simulate the random walks at most.
-            vertices (list[int]): the vertices for which we want to compute the meeting time
-            n_samples_per_vertex (int): the number of samples of the meeting time per pair of vertex 
-
-        Returns:
-            (dict[tuple of ints, 1D np.ndarray]): A dictionary where the key is a tuple (i,j) of vertices and the value is an array containing samples of the meeting
-            time of the walks started at those two vertices. 
-            
-        """
-        start_position = self.start_pos_with_focal_vertices(focal_vertices=vertices, n_samples_per_focal_vertex=n_samples_per_vertex)
-        meeting_times = self.get_meeting_times(max_time_steps=max_time_steps, start_position=start_position)
-
-        meeting_times_vw = {}
-        for i, v in enumerate(vertices):
-            mts_v  = meeting_times[i*n_samples_per_vertex: (i + 1)*n_samples_per_vertex, :]
-            for j, w in enumerate(vertices):
-                if v != w:
-                    mts_vw = mts_v[: , j*n_samples_per_vertex:(j+1)*n_samples_per_vertex]
-                    meeting_times_vw[(v,w)] = np.ndarray.flatten(mts_vw)
-
-        return meeting_times_vw
-
-    ###################################################################### PRIVATE METHODS ###############################################################################
-
     @staticmethod
-    def random_walk_matrix(g):
+    def random_walk_matrix_from_adjacency(adjacency: sparse.csr_matrix, degrees: np.ndarray) -> sparse.csr_matrix:
         """
 
         Returns the transition matrix of the random walk
 
         Args:
-            g (graph_tool.Graph): the graph for which we want to build the transition matrix
+            adjacency (scipy.sparse.csr_matrix): the adjacency matrix of the graph for which we want to build the transition matrix
+            degrees (np.ndarray): the degrees of the nodes in the graph
 
         Returns:
-            (torch.sparse_coo_tensor):  the transition matrix of the random walk. This is defined as P(i,j) = 1/deg(i)
+            (scipy.sparse.csr_matrix):  the transition matrix of the random walk. This is defined as P(i,j) = 1/deg(i)
 
         """
 
         # Build the transition matrix
-        A = sparse.csr_matrix(adjacency(g))
+        A = sparse.csr_matrix(adjacency)
 
-        degrees = np.array(1 / g.get_out_degrees(g.get_vertices()))
-        ind = np.arange(degrees.shape[0])
-        D = sparse.csr_matrix((degrees, (ind, ind)), shape=(ind.shape[0], ind.shape[0]))
+        one_over_degrees = np.array(1 / degrees)
+        ind = np.arange(one_over_degrees.shape[0])
+        D = sparse.csr_matrix((one_over_degrees, (ind, ind)), shape=(ind.shape[0], ind.shape[0]))
 
         P = D * A
-
         return P
-       
-    @staticmethod
-    def start_pos_with_focal_vertices(focal_vertices, n_samples_per_focal_vertex):
+
+    ###################################################################### PRIVATE METHODS ###############################################################################
+
+    def _get_meeting_times(self, max_time_steps: int, start_position: np.ndarray) -> np.ndarray:
         """
 
-        Creates a starting configuration where we have n_samples_per_focal_vertex random walks starting at each focal vertex 
-
-        Args:
-            focal_vertices (list): a list of integers, which are the vertices at which we want our walks to start out
-            n_samples_per_focal_vertex (int): the number of walks we want to start per focal vertex
-
-        Returns:
-            (1D np.ndarray): An array of the type [1,1,1,2,2,2,3,3,3] with the starting position of the walks. Every focal vertex is repeated n_samples_per_focal_vertex times.
-            
-        """
-
-        start_pos = np.zeros(len(focal_vertices)*n_samples_per_focal_vertex, dtype=np.int64)
-        
-        counter = 0
-        for v in focal_vertices:
-            for _ in range(n_samples_per_focal_vertex):
-                start_pos[counter] = v
-                counter += 1
-                
-        return start_pos
-
-
-    def get_meeting_times(self, max_time_steps, start_position):
-        """
-
-        This method simulates random walks started at start_position and keeps track of their meeting times. 
+        This method simulates random walks started at start_position and keeps track of their meeting times.
         Then it returns these meeting times, once all the walks have met or max_time_steps has expired.
 
         Args:
             max_time_steps (int): the number of time steps for which you want to simulate the random walks at most
-            start_position (1D np.ndarray, optional): a 1D np.ndarray in which each entry is the starting positions of one sample of the random walk. 
+            start_position (1D np.ndarray, optional): a 1D np.ndarray in which each entry is the starting positions of one sample of the random walk.
 
         Returns:
             (2D np.ndarray): a 2D np.ndarray with entry m,n being the meeting time between sample walk m and sample walk n. \
@@ -157,33 +102,31 @@ class RandomWalkSimulator:
         meeting_times = -1 * np.ones([n_samples, n_samples])
 
         # Fix the starting position and check if walks meet at the starting position
-        start_pos, array_start = self.start_position(n_samples=n_samples, start_position=start_position)
-        meeting_bool = self.check_meetings(current_pos=start_pos, meeting_times=meeting_times)
+        start_pos, array_start = self._start_position(n_samples=n_samples, start_position=start_position)
+        meeting_bool = self._check_meetings(current_pos=start_pos, meeting_times=meeting_times)
         meeting_times = meeting_times + meeting_bool
-        
 
         # Run the walks and at each time step check if some walks have met. Also, end the loop if all walks have met.
         # Here a while condition would look better but we could not use tqdm to time it
         array_current = array_start
-        for t in tqdm(range(1,max_time_steps)):
+        for t in tqdm(range(1, max_time_steps)):
             # Find next position of the walks
-            next_pos, array_next = self.next_step(array_current=array_current)
+            next_pos, array_next = self._next_step(array_current=array_current)
             array_current = array_next
 
             # Check meetings at this round
-            meeting_bool = self.check_meetings(current_pos=next_pos, meeting_times=meeting_times)
+            meeting_bool = self._check_meetings(current_pos=next_pos, meeting_times=meeting_times)
             meeting_times = meeting_times + (t + 1) * meeting_bool
-            
 
             # Verify if all walks have met
-            complete = self.check_complete(meeting_times=meeting_times)
+            complete = self._check_complete(meeting_times=meeting_times)
             if complete:
                 return meeting_times
 
         return meeting_times
 
     @staticmethod
-    def check_meetings(current_pos, meeting_times):
+    def _check_meetings(current_pos: np.ndarray, meeting_times: np.ndarray) -> np.ndarray:
         """
 
 
@@ -214,7 +157,7 @@ class RandomWalkSimulator:
         return first_meeting_bool
 
     @staticmethod
-    def check_complete(meeting_times):
+    def _check_complete(meeting_times: np.ndarray) -> bool:
         """
 
         This method check if all the walks have met
@@ -228,7 +171,7 @@ class RandomWalkSimulator:
 
         """
 
-        # Compares an auxiliary matrix of all -1 with the meeting time matrix 
+        # Compares an auxiliary matrix of all -1 with the meeting time matrix
         auxiliary = -1 * np.ones((meeting_times.shape[0], meeting_times.shape[1]))
         not_already_met_bool = (meeting_times == auxiliary)
 
@@ -240,19 +183,19 @@ class RandomWalkSimulator:
         else:
             return False
 
-    def next_step(self, array_current):
+    def _next_step(self, array_current: sparse.csr_matrix) -> Tuple[np.ndarray, sparse.csr_matrix]:
         """
 
          Given the current step of all the samples of the random walk, computes the next step for all the samples of the random walk
 
         Args:
-            array_current (2D np.ndarray): A 2D np.ndarray with rows indicating the current position of the random walk. \
+            array_current (sparse.csr_matrix): A matrix with rows indicating the current position of the random walk. \
             Each row is of the form [0,0, ..., 0, 1, 0, ..., 0]. The entry 1 indicates the current position of the random walk.
 
         Returns:
             (np.ndarray, scipy.sparse.csr_matrix): \
-            A tuple consisting of: 
-                * A 1D np.ndarray with for each sample of the random walk the index of the vertex where the rw will jump next 
+            A tuple consisting of:
+                * A 1D np.ndarray with for each sample of the random walk the index of the vertex where the rw will jump next
                 * A 2D scipy.sparse.csr_matrix with rows indicates the next position of the random walk of a sample.
 
             Each row is of the form [0,0, ..., 0, 1, 0, ..., 0]. The entry 1 indicates the next position of the random walk.
@@ -263,7 +206,7 @@ class RandomWalkSimulator:
         proba_next_pos = array_current * self.P
 
         # Sample index of next step of the random walk.
-        next_pos = self.compute_next_position_from_proba(proba_next_pos)
+        next_pos = self._compute_next_position_from_proba(proba_next_pos)
 
         # Create indices for sparse matrix
         ind_ptr = np.arange(array_current.shape[0] + 1, dtype=np.int64)
@@ -272,7 +215,8 @@ class RandomWalkSimulator:
         values = np.ones(array_current.shape[0], dtype=np.float64)
 
         # Construct a 2D sparse tensor with rows of the form [0,0, ..., 0, 1, 0, ..., 0], where the entry 1 indicates the position of the rw
-        array_next = sparse.csr_matrix((values, next_pos, ind_ptr), shape=(array_current.shape[0], array_current.shape[1]))
+        array_next = sparse.csr_matrix((values, next_pos, ind_ptr),
+                                       shape=(array_current.shape[0], array_current.shape[1]))
 
         # One could initialise the sparse matrix as follows (more intuitive)
         # array_next = sparse.csr_matrix((values, (ind_row, next_pos)), shape=(array_current.shape[0],array_current.shape[1]))
@@ -281,7 +225,7 @@ class RandomWalkSimulator:
         return next_pos, array_next
 
     @staticmethod
-    def compute_next_position_from_proba(proba_next_pos):
+    def _compute_next_position_from_proba(proba_next_pos: sparse.csr_matrix) -> np.ndarray:
         """
 
         For each row i of proba_next_pos, corresponding to one random walk, it samples the column index j with the probability specified in the entry proba_next_pos[i][j].
@@ -297,9 +241,9 @@ class RandomWalkSimulator:
 
         """
 
-        # This method is actually 3xfaster if only we could write the cuda code for it!! 
+        # This method is actually 3xfaster if only we could write the cuda code for it!!
         # Indeed, instead of transforming proba_next_pos into an array with a bunch of zeros, we could only
-        # consider the entries in which we are interested. 
+        # consider the entries in which we are interested.
 
         # Changes a numpy array into a torch tensor
         proba_next_pos_torch = torch.as_tensor(proba_next_pos.toarray(), device='cpu')
@@ -312,20 +256,20 @@ class RandomWalkSimulator:
 
         return next_pos
 
-    def start_position(self, n_samples, start_position):
+    def _start_position(self, n_samples: int, start_position: np.ndarray) -> Tuple[np.ndarray, sparse.csr_matrix]:
         """
 
         Randomly chooses starting vertices for each sample of the random walks
 
         Args:
             n_samples (int): the number of random walks you want to sample
-            start_position (1D np.ndarray): starting positions for each sample of the random walk 
+            start_position (1D np.ndarray): starting positions for each sample of the random walk
 
         Returns:
-            [(np.ndarray, scipy.sparse.csr_matrix)]: 
-            A tuple consisting of: 
-                * A 1D np.ndarray with for each sample of the random walks the index of the starting vertex of the random walks 
-                * A 2D scipy.sparse.csr_matrix with rows indicates the starting position of the random walk of a sample. 
+            [(np.ndarray, scipy.sparse.csr_matrix)]:
+            A tuple consisting of:
+                * A 1D np.ndarray with for each sample of the random walks the index of the starting vertex of the random walks
+                * A 2D scipy.sparse.csr_matrix with rows indicates the starting position of the random walk of a sample.
 
             Each row is of the form [0,0, ..., 0, 1, 0, ..., 0]. The entry 1 indicates the position of the random walk.
 
@@ -347,5 +291,7 @@ class RandomWalkSimulator:
         # However, this slows down the code remarkably
 
         return start_pos, array_start
+
+
 
 

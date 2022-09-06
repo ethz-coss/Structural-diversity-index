@@ -1,9 +1,7 @@
-RSE-Distance
-============
+structural_diversity_index
+==========================
 
 .. toctree::
    :maxdepth: 4
 
-   MeetingTimeEstimator
-   RandomWalkSimulator
-   RandomWalkSimulatorCUDA
+   structural_diversity_index
