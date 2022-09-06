@@ -27,9 +27,8 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon']
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-autodoc_mock_imports = ['cupy', 'cupyx']
+autodoc_mock_imports = ['numpy', 'scipy', 'cupy', 'cupyx', 'scipy', 'networkx', 'tqdm', 'torch', 'typing']
 autodoc_default_options = {"members": True, "undoc-members": True, "private-members": True}
-
 
 
 # -- Options for HTML output -------------------------------------------------
