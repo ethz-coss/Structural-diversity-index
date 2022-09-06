@@ -43,7 +43,7 @@ class MeetingTimesUI:
             on_cuda (bool): if True, uses cuda to make computations
 
         Returns:
-            (RandomWalkSimulator or RandomWalkSimulatorCUDA): An instance of the class RandomWalkSimulator or RandomWalkSimulatorCUDA
+            An instance of the class RandomWalkSimulator or RandomWalkSimulatorCUDA
 
         """
         if on_cuda:
