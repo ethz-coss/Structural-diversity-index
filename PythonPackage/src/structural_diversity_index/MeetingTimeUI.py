@@ -24,7 +24,7 @@ class MeetingTimesUI:
             on_cuda (bool): if True, uses cuda to make computations
 
         Returns:
-            (RandomWalkSimulator or RandomWalkSimulatorCUDA): An instance of the class RandomWalkSimulator or RandomWalkSimulatorCUDA
+            An instance of the class RandomWalkSimulator or RandomWalkSimulatorCUDA
 
         """
         adjacency = nx.to_scipy_sparse_array(G=g, format='csr', dtype=float)
