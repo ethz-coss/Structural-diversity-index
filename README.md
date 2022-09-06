@@ -1,64 +1,59 @@
-# RSE-Distance
-This repository contains code for fast numerical computation of the structural diversity index
+# Structural diversity index
+
+This is the documentation for the repository [Structural-diversity-index](https://pypi.org/project/structural-diversity-index/).
+This repository contains code for fast numerical computation of the structural diversity index.
 
 ## Contents
-The repository contains four python scripts:**MeetingTimesUI**, **RandomWalkSimulatorCUDA**, **RandomWalkSimulator** and **MeetingTimeEstimator**
-Let us briefly describe what each script does:
-   * MeetingTimeUI provides a user interface for the scripts
-   * RandomWalkSimulator computes the meeting time of a random walk on a graph. 
-   * RandomWalkSimulatorCUDA computes the meeting time of random walks on a graph using CUDA and GPUs (much faster for large graphs). It requires CudaToolkit 11.3 to run.
-   * MeetingTimeEstimator is a class that makes educated guesses of the meeting times of two walks which have not met, based on the meeting times of walks which have met. 
+The repository contains four python scripts: **MeetingTimesUI**, **RandomWalkSimulatorCUDA**, **RandomWalkSimulator** and **MeetingTimeEstimator**.
+Here is a brief description:
 
-Each one of these scripts is explained more in detail in the documentation provided [here](https://rse-distance.readthedocs.io).
+   * MeetingTimeUI provides a user interface for the scripts
+   * RandomWalkSimulator computes the meeting time of a random walk on a graph.
+   * RandomWalkSimulatorCUDA computes the meeting time of random walks on a graph using CUDA and GPUs (much faster for large graphs). It requires Cudatoolkit to run.
+   * MeetingTimeEstimator is a class that makes educated guesses of the meeting times of two walks which have not met, based on the meeting times of walks which have met.
+
 If you are interested in a **quick start tutorial** see the section **Tutorial** below.
 
 ## Installation
 
-To use the scripts provided here it is necessary to install some packages.
-We suggest to install everything using a package installer such as [conda](https://www.anaconda.com/products/individual).
+The scripts are provided in the form of a python package called [structural_diversity_index](https://pypi.org/project/structural-diversity-index/).
+To install the package and its dependencies type into the terminal
 
-### Linux and Windows
-After having installed conda, enter the following command in the terminal:
-
-```rb
-conda env create -f environment_linux.yml
+```
+pip install structural_diversity_index==0.0.5
 ```
 
-This will create a conda environment named **rse-distance** and install all the dependencies to run the version of the scripts which does **not** require GPUs.
-If you want to run the version requiring GPUs, you will need to enter the following command:
+This will install the 0.0.5 version (latest) of the package in your python packages directory.
 
-```rb
-conda env create -f environmentCUDA.yml
+**WARNING**: Installing the package via pip will allow **NOT** you to use the scripts that run computations on GPUs.
+See below for details of how to run the scripts computing on GPUs.
+
+### Installation for GPUs
+
+If you are not interested in running computations on GPUs you can ignore this section.
+
+Installing the structural_diversity_index package via pip does not enable you to run computations on GPUs.
+The reason is that the Cudatoolkit cannot be installed by pip (because it is not a python package).
+
+To circumvent this issue one can use a package installer such as [conda](https://www.anaconda.com/products/individual).
+Once you have installed conda on your computer, download the file **environment.yml** from the [GitHub](https://github.com/ethz-coss/Structural-diversity-index).
+In the terminal, go to the directory containing the environment.yml file you downloaded and type:
+
+```
+conda env create -f environment.yml
 ```
 
-This will create a conda environment named **rse-distance-cuda** and install all the dependencies to run the version of the scripts which requires GPUs.
-Note that you need to have GPUs on your computer to run this version of the scripts. 
-
-Disclaimer: I have never tried to install the dependencies on Windows. 
-
-### MacOS
-After having installed conda, enter the following command in the terminal:
-
-```rb
-conda env create -f environment_mac.yml
-```
-
-This will create a conda environment named **rse-distance** and install all the dependencies to run the version of the scripts which does **not** require GPUs.
-MacOS Binaries dont support CUDA, therefore it is not possible to run the GPU version of the script on MacOS.
-
-### General remarks on packages 
-
-The main packages in the environmnet **rse-distance** are [graph_tool](https://graph-tool.skewed.de), [numpy](https://numpy.org), [tqdm](https://github.com/tqdm/tqdm) and [pytorch](https://pytorch.org). The environment **rse-distance-cuda** contains all the packages in the environment **rse-distance** plus [cupy](https://cupy.dev). If (for any reason) the installation instructions above do not work for you, you can still try to install the aforementioned packages manually. 
+This will create a conda environment called **sd_index** and install all the dependencies necessary to computations on GPUs.
+Now you can set on_cuda=True (see Examples.ipynb in [GitHub](https://github.com/ethz-coss/Structural-diversity-index>) and computations will run on GPUs.
 
 ## Tutorial
+The Jupyter notebook **Example.ipynb** contains a detailed tutorial explaining how to use the package structural_diversity_index.
+You can find it [here](https://github.com/ethz-coss/Structural-diversity-index).
 
-The Jupiter notebook **Example.ipynb** contains a detailed tutorial explaining how to employ the scripts RandomWalkSimulator (or RandomWalkSimulatorCUDA) in order to compute:
-* The RSE distance between two vertices i and j
-* The structural diversity index \Delta(G)
 
 ## Extending the code
-
-If you are interested in extending or simply playing around with the code, I have created a detailed documentation with ReadTheDocs which is available [here](https://rse-distance.readthedocs.io). Have fun!
+If you are interested in extending or simply playing around with the code, I have created a detailed documentation with ReadTheDocs which is available [here](https://rse-distance.readthedocs.io). 
+Have fun!
 
 
 

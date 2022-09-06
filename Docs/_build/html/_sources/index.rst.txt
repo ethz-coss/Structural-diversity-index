@@ -26,9 +26,9 @@ Installation
 The scripts are provided in the form of a python package called `structural_diversity_index <https://pypi.org/project/structural-diversity-index/>`_.
 To install the package and its dependencies type into the terminal
 
-``pip install structural_diversity_index==0.0.3``
+``pip install structural_diversity_index==0.0.5``
 
-This will install the 0.0.3 version (latest) of the package in your python packages directory.
+This will install the 0.0.5 version (latest) of the package in your python packages directory.
 
 **WARNING**: Installing the package via pip will allow **NOT** you to use the scripts that run computations on GPUs.
 See below for details of how to run the scripts computing on GPUs.
