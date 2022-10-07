@@ -2,7 +2,7 @@
 
 Welcome to the repository structural-diversity-index.
 This repository contains code for fast numerical computation of the structural diversity index.
-This code is also available in a python package that you can find [here](https://pypi.org/project/structural-diversity-index/).
+This code is available in a python package that you can find [here](https://pypi.org/project/structural-diversity-index/).
 
 ## Contents
 The repository contains four python scripts: **MeetingTimesUI**, **RandomWalkSimulatorCUDA**, **RandomWalkSimulator** and **MeetingTimeEstimator**.
