@@ -1,7 +1,8 @@
 # Structural diversity index
 
-This is the documentation for the repository [structural-diversity-index](https://pypi.org/project/structural-diversity-index/).
+Welcome to the repository structural-diversity-index.
 This repository contains code for fast numerical computation of the structural diversity index.
+This code is also available in a python package that you can find [here](https://pypi.org/project/structural-diversity-index/).
 
 ## Contents
 The repository contains four python scripts: **MeetingTimesUI**, **RandomWalkSimulatorCUDA**, **RandomWalkSimulator** and **MeetingTimeEstimator**.
@@ -20,6 +21,7 @@ The scripts are provided in the form of a python package called [structural_dive
 To install the package and its dependencies you should create a [python virtual environment](https://docs.python.org/3/library/venv.html).
 A detailed tutorial about virtual environments is available [here](https://docs.python.org/3/tutorial/venv.html). 
 However, if you are in a hurry you can just open a terminal window and type
+
 ```
 python3 -m venv sdi_venv
 ```
